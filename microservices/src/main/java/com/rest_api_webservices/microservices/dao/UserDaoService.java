@@ -5,11 +5,12 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Component
 public class UserDaoService {
-
     // Simulated in-memory database
     private static final List<User> users = new ArrayList<>();
     private static int userCount = 0;
@@ -24,6 +25,10 @@ public class UserDaoService {
         return users;
     }
 
+    public List<User> findFirst() {
+        return Collections.singletonList(users.getFirst());
+    }
+
     public User save(User user) {
         if (user.getId() == null) {
             user.setId(++userCount);
@@ -32,10 +37,15 @@ public class UserDaoService {
         return user;
     }
 
-    public User findOne(int id) {
+    public User findOne(int id){
+        Predicate<? super User> predicate = user -> user.getId().equals(id);
+        return users.stream().filter(predicate).findFirst().get();
+    }
+
+    /*public User findOne(int id) {
         return users.stream()
                 .filter(user -> user.getId() == id)
                 .findFirst()
                 .orElse(null);
-    }
+    }*/
 }
