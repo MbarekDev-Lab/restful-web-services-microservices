@@ -3,6 +3,7 @@ package com.rest_api_webservices.microservices.resources;
 import com.rest_api_webservices.microservices.dao.UserDaoService;
 import com.rest_api_webservices.microservices.exceptions.UserNotFoundException;
 import com.rest_api_webservices.microservices.user.User;
+import jakarta.validation.Valid;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class UserResource {
     }
 
     @PostMapping("/creatusers")
-    public  ResponseEntity<User> createUser1(@RequestBody User user){
+    public  ResponseEntity<User> createUser1(@Valid  @RequestBody User user){
         service.save(user);
         return ResponseEntity.created(null).build();
     }
