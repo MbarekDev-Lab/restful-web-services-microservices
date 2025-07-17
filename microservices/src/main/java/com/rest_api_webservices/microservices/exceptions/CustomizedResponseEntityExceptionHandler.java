@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
  */
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-
 	/**
 	 * Handle all unhandled exceptions (fallback).
 	 */
@@ -27,10 +26,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 				ex.getMessage(),
 				request.getDescription(false)
 		);
-
 		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
 	/**
 	 * Handle UserNotFoundException specifically.
 	 */
