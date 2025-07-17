@@ -1,7 +1,4 @@
-package com.rest_api_webservices.microservices.exception;
-
-import com.rest_api_webservices.microservices.exceptions.ErrorDetails;
-import com.rest_api_webservices.microservices.exceptions.UserNotFoundException;
+package com.rest_api_webservices.microservices.exceptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -11,10 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 /**
  * Global exception handler to return custom error responses for the API.
  */
@@ -45,8 +40,6 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
-
-
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException exception,
@@ -66,11 +59,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
-
-
 	/*
 	 * Handle validation errors thrown by @Valid annotation.
-
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid2(
 			MethodArgumentNotValidException exception,
@@ -87,7 +77,6 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 				"Total Errors: " + exception.getErrorCount() + " | First Error: " + defaultMessage,
 				request.getDescription(false)
 		);
-
 		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 	protected ResponseEntity<Object> handleMethodArgumentNotValid2(
