@@ -10,7 +10,7 @@ import java.util.Locale;
 
 @RestController
 public class HelloWorldController {
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     public HelloWorldController(MessageSource messageSource) {
         this.messageSource = messageSource;
