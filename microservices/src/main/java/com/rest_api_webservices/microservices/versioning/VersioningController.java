@@ -32,13 +32,23 @@ public class VersioningController {
 
     @GetMapping(path = "/person/header",headers = "X-API-VERSION=1")
     public PersonV1 getFirstVesuionOfPersonRequestHeader(){
-        return new PersonV1( "charls");
+        return new PersonV1( "header");
     }
 
     @GetMapping(path = "/person/header",headers = "X-API-VERSION=2")
     public PersonV2 getSecondVesuionOfPersonRequestHeader(){
-        return new PersonV2(new Name( "charls","Bob"));
+        return new PersonV2(new Name( "person","header"));
     }
 
+
+    @GetMapping(path = "/person/accept", produces = "application/vnd.company.app-v1+json")
+    public PersonV1 getSecondVersionOfPersonAccptsHeader() {
+        return new PersonV1("accept");
+    }
+
+    @GetMapping(path = "/person/accept", produces = "application/vnd.company.app-v2+json")
+    public PersonV2 getSecondVersionOfPersonAccptsHeaderV2() {
+        return new PersonV2(new Name("person","accept v2"));
+    }
 
 }
