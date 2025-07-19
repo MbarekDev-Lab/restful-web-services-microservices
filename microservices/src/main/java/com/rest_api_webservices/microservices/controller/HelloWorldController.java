@@ -37,8 +37,4 @@ public class HelloWorldController {
         return   messageSource.getMessage("good.mornin.message",null, "Default", locale);
     //    return "Hello world";
     }
-
-
-
-
 }
