@@ -1,7 +1,9 @@
 package com.rest_api_webservices.microservices.resources;
 
 import com.rest_api_webservices.microservices.daoImp.UserDaoService;
+import com.rest_api_webservices.microservices.entities.Post;
 import com.rest_api_webservices.microservices.exceptions.UserNotFoundException;
+import com.rest_api_webservices.microservices.interfaces.jpa.PostRepository;
 import com.rest_api_webservices.microservices.interfaces.jpa.UserRepository;
 import com.rest_api_webservices.microservices.entities.User;
 import jakarta.validation.Valid;
@@ -22,9 +24,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/jpa")
 public class UserJpaResource {
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
 
-    public UserJpaResource(UserRepository userRepository){
+    public UserJpaResource(UserRepository userRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     @GetMapping("/users")
@@ -35,7 +39,6 @@ public class UserJpaResource {
     @GetMapping("/users/{id}")
     public EntityModel<User> retrieveUsersById(@PathVariable int id) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("id:" + id));
-
         EntityModel<User> entityModel = EntityModel.of(user);
         WebMvcLinkBuilder linkToUsers = linkTo(methodOn(this.getClass()).retrieveAllUsers());
         entityModel.add(linkToUsers.withRel("all_users"));
@@ -59,6 +62,30 @@ public class UserJpaResource {
         userRepository.delete(user);
         return ResponseEntity.noContent().build();
     }
+
+    // POST /jpa/users/{id}/posts
+    @PostMapping("/users/{id}/posts")
+    public ResponseEntity<Post> createPostForUser(
+            @PathVariable int id,
+            @Valid @RequestBody Post post) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("id: " + id));
+        post.setUser(user); // Set the owning side of the relationship
+        Post savedPost = postRepository.save(post);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{postId}")
+                .buildAndExpand(savedPost.getId())
+                .toUri();
+        return ResponseEntity.created(location).body(savedPost);
+    }
+
+    // GET /jpa/users/{id}/posts
+    @GetMapping("/users/{id}/posts")
+    public List<Post> retrievePostsForUser(@PathVariable int id) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("id: " + id));
+        return user.getPosts();
+    }
+
 
 //    // POST /users
 //    @PostMapping("/users")
