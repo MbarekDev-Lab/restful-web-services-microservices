@@ -65,11 +65,9 @@ public class UserJpaResource {
 
     // POST /jpa/users/{id}/posts
     @PostMapping("/users/{id}/posts")
-    public ResponseEntity<Post> createPostForUser(
-            @PathVariable int id,
-            @Valid @RequestBody Post post) throws UserNotFoundException {
+    public ResponseEntity<Post> createPostForUser2(@PathVariable int id, @Valid @RequestBody Post post) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("id: " + id));
-        post.setUser(user); // Set the owning side of the relationship
+        post.setUser(user); // Set the relationship
         Post savedPost = postRepository.save(post);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
