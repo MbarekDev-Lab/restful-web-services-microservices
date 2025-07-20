@@ -1,6 +1,6 @@
-package com.rest_api_webservices.microservices.dao;
+package com.rest_api_webservices.microservices.daoImp;
 
-import com.rest_api_webservices.microservices.user.User;
+import com.rest_api_webservices.microservices.entities.User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

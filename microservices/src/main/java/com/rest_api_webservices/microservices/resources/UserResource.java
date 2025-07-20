@@ -1,9 +1,9 @@
 package com.rest_api_webservices.microservices.resources;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-import com.rest_api_webservices.microservices.dao.UserDaoService;
+import com.rest_api_webservices.microservices.daoImp.UserDaoService;
 import com.rest_api_webservices.microservices.exceptions.UserNotFoundException;
-import com.rest_api_webservices.microservices.user.User;
+import com.rest_api_webservices.microservices.entities.User;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;

@@ -1,4 +1,4 @@
-package com.rest_api_webservices.microservices.user;
+package com.rest_api_webservices.microservices.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +10,9 @@ import java.time.LocalDate;
 
 @Entity(name = "user_details")
 public class User {
+    protected User(){
+    }
+
     @Id
     @GeneratedValue
     private Integer id;

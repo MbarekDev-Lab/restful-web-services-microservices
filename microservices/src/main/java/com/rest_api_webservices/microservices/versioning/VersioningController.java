@@ -1,9 +1,8 @@
 package com.rest_api_webservices.microservices.versioning;
 
-import com.rest_api_webservices.microservices.user.Name;
-import com.rest_api_webservices.microservices.user.Person;
-import com.rest_api_webservices.microservices.user.PersonV1;
-import com.rest_api_webservices.microservices.user.PersonV2;
+import com.rest_api_webservices.microservices.entities.Name;
+import com.rest_api_webservices.microservices.entities.PersonV1;
+import com.rest_api_webservices.microservices.entities.PersonV2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

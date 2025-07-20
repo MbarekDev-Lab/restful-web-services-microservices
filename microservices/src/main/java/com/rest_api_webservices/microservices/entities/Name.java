@@ -1,4 +1,4 @@
-package com.rest_api_webservices.microservices.user;
+package com.rest_api_webservices.microservices.entities;
 
 public class Name {
     private String firstName;
